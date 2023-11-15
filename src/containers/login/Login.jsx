@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import CenteredContainer from "../../components/CenteredContainer.jsx";
 import { useNavigate } from 'react-router-dom';
@@ -10,11 +10,17 @@ import "../../style/home/Login.css"
 const Login= () => {
 
   const [password, setPassword] = useState('');
+  const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
 
   const locationUrl = useLocation();
   const crm = locationUrl.state?.crm
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
+  useEffect(() => {
+    if (!locationUrl.state?.crm) {
+      navigate('/'); 
+    }
+  }, [crm, navigate]);
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -23,7 +29,6 @@ const Login= () => {
   const handleLogin = () => {
     // Implementar lógica de login
   };
-  const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
 
 
   const handleCloseModal = () => {

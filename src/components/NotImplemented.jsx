@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 
 import "../style/components/NotImplemented.css";
 
-const NotImplemented = ({ active,onClose  }) => {
+const NotImplemented = ({ active,onClose, msg }) => {
   const [isOpen, setIsOpen] = useState(active);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const NotImplemented = ({ active,onClose  }) => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>Atenção</h2>
-            <p>Esta funcionalidade não foi implementada ainda.</p>
+            <p>{msg?msg:"Esta funcionalidade não foi implementada ainda"}</p>
             <Button variant="contained" color="error" onClick={onClose} className='close-button'>
               Fechar
              </Button>

@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import CenteredContainer from "../../components/CenteredContainer.jsx"
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import CenteredContainer from "../../components/CenteredContainer.jsx"
+import NotImplemented from "../../components/NotImplemented.jsx"
+import ValidationCrm from "../../utils/Validations.jsx"
+
+
 
 import "../../style/home/Home.css"
 
 
 const Home = () => {
   const locationUrl = useLocation();
+  const navigate = useNavigate();
+
   const [crm, setCrm] = useState(locationUrl.state?.crm?locationUrl.state?.crm: "");
   const [isValidCrm, setIsValidCrm] = useState(true);
   const [crmData, setCrmData] = useState(null);
   const [crmDataNotFound, setCrmDataNotFound] = useState(false);
-  const navigate = useNavigate();
+  const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
+
 
   const getCrmData = (crm) => {
     //implementar serviço de dados aqui
@@ -47,8 +54,7 @@ const Home = () => {
   };
 
   const validateCrm = () => {
-    const regex = /^\d{5,}(-|\/)(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)$/;
-    const isValidCrm = regex.test(crm.toUpperCase())
+    const isValidCrm = ValidationCrm(crm)
 
     setIsValidCrm(isValidCrm);
     setCrmDataNotFound(false);
@@ -64,13 +70,29 @@ const Home = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setShowNotImplementedModal(false);
+  };
 
   const redirectToLogin = () => {
-    navigate('/login', { state: { crm } });
+    let isValid = ValidationCrm(crm);
+    let possuiRegistro = false
+
+    if(isValid){
+      if(getCrmData(crm))
+        possuiRegistro = true
+    }
+
+    if(isValid && possuiRegistro)
+      navigate('/login', { state: { crm } });
+    else 
+      setShowNotImplementedModal(true);
   };
 
   return (
     <CenteredContainer>
+        <NotImplemented active={showNotImplementedModal} onClose={handleCloseModal} msg="Digite um crm válido, ou um crm cadastrado."/>
+
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={500} className="container-home">
             <Box>
                 <img width={240} src="src/assets/SecureHealthTransparente.png" alt="Imagem Centralizada" />

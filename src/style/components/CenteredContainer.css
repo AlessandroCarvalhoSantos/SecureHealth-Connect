@@ -3,10 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh; 
-    /* background-color: rgb(205, 214, 223); */
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.041), rgba(38, 4, 82, 0.322));
     position: relative;
-    background-image: url("../../assets/backGround.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
   }
   

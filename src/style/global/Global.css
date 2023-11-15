@@ -3,5 +3,7 @@ body
     margin: 0;
     font-family: 'Inter', sans-serif;
     font-family: 'Roboto Slab', serif;
-    
+    background-image: url("../../assets/backGround.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
