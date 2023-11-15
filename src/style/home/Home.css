@@ -56,3 +56,11 @@
     box-sizing: border-box;
     display: inline-block;
 }
+
+.crm-data-not-found{
+    width: 100%;
+    padding: 10px;
+    background-color: blanchedalmond;
+    box-sizing: border-box;
+    margin-top: 20px;
+}

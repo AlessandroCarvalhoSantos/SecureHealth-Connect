@@ -86,7 +86,7 @@ const Home = () => {
                 className="input-crm"
             />
             {crmDataNotFound && (
-              <Box className={`crm-data`}>
+              <Box className={`crm-data-not-found`}>
                 <center>Informações do profissional não encontrado.</center>
               </Box>
             )}
