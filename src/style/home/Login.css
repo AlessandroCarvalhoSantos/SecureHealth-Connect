@@ -23,8 +23,9 @@
     justify-content:space-around;
 }
 
-.button-back-login{
-    margin: 20px;
-    width: 8%;
-    padding: 20px;
+.button-back-forget-passworld{
+    margin-top: 0px 20px;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
 }

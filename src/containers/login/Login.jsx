@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import CenteredContainer from "../../components/CenteredContainer.jsx";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import NotImplemented from "../../components/NotImplemented.jsx"
+
 import "../../style/home/Login.css"
-
-
 
 const Login= () => {
 
@@ -16,6 +15,7 @@ const Login= () => {
   const crm = locationUrl.state?.crm
   const navigate = useNavigate();
 
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
@@ -23,9 +23,15 @@ const Login= () => {
   const handleLogin = () => {
     // Implementar lógica de login
   };
+  const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
+
+
+  const handleCloseModal = () => {
+    setShowNotImplementedModal(false);
+  };
 
   const handleForgotPassword = () => {
-    // Implementar lógica de esqueci a senha
+    setShowNotImplementedModal(true);
   };
 
   const goBack = () => {
@@ -34,6 +40,7 @@ const Login= () => {
 
   return (
     <CenteredContainer>
+      <NotImplemented active={showNotImplementedModal} onClose={handleCloseModal}/>
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={500} className="container-login">
         <Box>
             <img width={240} src="src/assets/SecureHealthTransparente.png" alt="Imagem Centralizada" />
@@ -55,7 +62,7 @@ const Login= () => {
           onChange={handlePasswordChange} 
           fullWidth 
         />
-        <Button variant="text" color="primary" onClick={handleForgotPassword} >
+        <Button variant="text" color="primary" onClick={handleForgotPassword} className='button-back-forget-passworld' >
             Esqueci a senha
         </Button>
         <Box className='group-button-login'>
