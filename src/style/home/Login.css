@@ -29,3 +29,11 @@
     padding: 30px;
     box-sizing: border-box;
 }
+
+.user-disabled{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(255, 205, 205);
+    box-sizing: border-box;
+    margin: 20px 0px;
+}

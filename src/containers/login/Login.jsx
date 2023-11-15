@@ -10,12 +10,16 @@ import "../../style/home/Login.css"
 const Login= () => {
 
   const [password, setPassword] = useState('');
+  const [isValidPassWorld, setIsValidPassWorld] = useState(true);
+  const [isInvalidUser, setIsInvalidUser] = useState(false);
+
   const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
 
   const locationUrl = useLocation();
-  const crm = locationUrl.state?.crm
   const navigate = useNavigate(); 
 
+  const crm = locationUrl.state?.crm
+  
   useEffect(() => {
     if (!locationUrl.state?.crm) {
       navigate('/'); 
@@ -27,9 +31,61 @@ const Login= () => {
   };
 
   const handleLogin = () => {
-    // Implementar lógica de login
+    if(checkLogin(crm, password))
+        navigate('/'); 
   };
 
+  
+  const checkLogin = (crm, password) => {
+    //Implementar serviço de login aqui, método estático por enquanto
+    //Verificar senha e situação ativo
+    let dados = getCrmData(crm);
+    setIsInvalidUser(false)
+    setIsValidPassWorld(true)
+    
+    if(crm.toUpperCase() == dados.crm && dados.password == password){
+        if(dados.status == "Ativo")
+            return true;
+
+        setIsInvalidUser(true)
+    }
+    else{
+        setIsValidPassWorld(false)
+    }
+    return false;
+  };
+
+  //Método só para trazer dados, retirar depois
+  const getCrmData = (crm) => {
+    //implementar serviço de dados aqui
+    //Dado estático
+    if(crm.toUpperCase() == "00000-ES")
+    {
+      return {
+        nome: "NomeTeste C. Sobrenome",
+        password: "1234",
+        especializacao: "Cirurgião",
+        estadoEmissao: "Espírito Santo",
+        emissao: "11/10/2021",
+        status: "Inativo", // ou "Ativo"
+        crm: "00000-ES"
+      }
+    }else if(crm.toUpperCase() == "11111-ES"){
+      console.log("0000000")
+      return {
+        nome: "NomeTeste C. Sobrenome",
+        password: "1234",
+        especializacao: "Obstetra",
+        estadoEmissao: "Espírito Santo",
+        emissao: "12/09/2000",
+        status: "Ativo", // ou "Inativo"
+        crm: "11111-ES"
+      }
+    }
+    else{
+      return null;
+    }
+  };
 
   const handleCloseModal = () => {
     setShowNotImplementedModal(false);
@@ -65,11 +121,18 @@ const Login= () => {
           type="password"
           value={password} 
           onChange={handlePasswordChange} 
+          error={!isValidPassWorld}
+          helperText={!isValidPassWorld ? "Senha inválida" : ""}
           fullWidth 
         />
         <Button variant="text" color="primary" onClick={handleForgotPassword} className='button-back-forget-passworld' >
             Esqueci a senha
         </Button>
+        {isInvalidUser && (
+            <Box className={`user-disabled`}>
+                <center>Seu usuário está inativado</center>
+            </Box>
+        )}
         <Box className='group-button-login'>
           <Button variant="contained" color="primary" onClick={handleLogin} className='button-login'>
             Login
