@@ -1,0 +1,9 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    background-color: rgb(205, 214, 223);
+    position: relative;
+  }
+  

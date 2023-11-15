@@ -1,0 +1,59 @@
+.container-home
+{
+    padding: 20px 50px;
+    border-radius: 50px;
+    box-shadow: 0px -11px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+/* .input-crm{
+    
+} */
+
+.button-home{
+    margin: 20px;
+    background-color: rgb(224, 126, 6);
+    width: 40%;
+    padding: 20px;
+}
+
+.group-button-home{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+
+.crm-data{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+}
+
+.ativo{
+    background-color: rgb(145, 182, 145);
+}
+
+.inativo{
+    background-color: rgb(223, 179, 179);
+}
+
+.tagRed{
+    background-color: red;
+    font-weight: bold;
+    padding: 2px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.tagGreen{
+    background-color:green;
+    font-weight: bold;
+    padding: 2px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+}
