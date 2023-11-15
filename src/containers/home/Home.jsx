@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import CenteredContainer from "../../components/CenteredContainer.jsx"
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 import "../../style/home/Home.css"
 
+
 const Home = () => {
-  const [crm, setCrm] = useState('');
+  const locationUrl = useLocation();
+  const [crm, setCrm] = useState(locationUrl.state?.crm?locationUrl.state?.crm: "");
   const [isValidCrm, setIsValidCrm] = useState(true);
   const [crmData, setCrmData] = useState(null);
   const [crmDataNotFound, setCrmDataNotFound] = useState(false);
-
+  const navigate = useNavigate();
 
   const getCrmData = (crm) => {
     //implementar serviço de dados aqui
     //Dado estático
-    console.log(crm)
     if(crm.toUpperCase() == "00000-ES")
     {
       return {
@@ -30,7 +34,7 @@ const Home = () => {
         especializacao: "Obstetra",
         estadoEmissao: "Espírito Santo",
         emissao: "12/09/2000",
-        status: "Ativo", // ou "Ativo"
+        status: "Ativo", // ou "Inativo"
       }
     }
     else{
@@ -62,8 +66,7 @@ const Home = () => {
 
 
   const redirectToLogin = () => {
-   
-    
+    navigate('/login', { state: { crm } });
   };
 
   return (
@@ -99,10 +102,10 @@ const Home = () => {
             )}
 
             <Box className='group-button-home'>
-                <Button variant="contained" color="primary" onClick={validateCrm} className='button-home'>
+                <Button variant="contained" color="primary" onClick={validateCrm} className='button-login'>
                     Verificar CRM
                 </Button>
-                <Button variant="contained" color="success" onClick={redirectToLogin} className='button-home'>
+                <Button variant="contained" color="success" onClick={redirectToLogin} className='button-login'>
                     Ir para Login
                 </Button>
             </Box>

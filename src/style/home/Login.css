@@ -1,0 +1,30 @@
+.container-login
+{
+    /* padding: 20px 50px;
+    border-radius: 50px;
+    box-shadow: 0px -11px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1); */
+}
+
+
+.input-crm-login{
+    background-color: bisque;
+}
+
+.button-login{
+    margin: 20px;
+    width: 40%;
+    padding: 20px;
+}
+
+.group-button-login{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.button-back-login{
+    margin: 20px;
+    width: 8%;
+    padding: 20px;
+}
