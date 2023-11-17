@@ -30,9 +30,12 @@ const Login= () => {
     setPassword(event.target.value);
   };
 
+  const token = "761f7a100635a5fc03e5063aee1eef91";
+
   const handleLogin = () => {
+    let dados = getCrmData(crm);
     if(checkLogin(crm, password))
-        navigate('/'); 
+        navigate('/pacientehome', { state: { token,  dados}});  //Gerar token depois aqui automatico
   };
 
   
@@ -104,7 +107,7 @@ const Login= () => {
       <NotImplemented active={showNotImplementedModal} onClose={handleCloseModal}/>
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={500} className="container-login">
         <Box>
-            <img width={240} src="src/assets/SecureHealthTransparente.png" alt="Imagem Centralizada" />
+            <img width={240} src="src/assets/SecureHealthTransparente.png" alt="SecureHealth Connect" />
         </Box>
         <TextField 
           label="CRM" 

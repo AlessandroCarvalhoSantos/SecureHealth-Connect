@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import CenteredContainer from "../../components/CenteredContainer.jsx"
 import NotImplemented from "../../components/NotImplemented.jsx"
-import ValidationCrm from "../../utils/Validations.jsx"
+import ValidationCrm  from "../../utils/ValidationCrm.jsx"
 
 
 
@@ -95,7 +95,7 @@ const Home = () => {
 
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" width={500} className="container-home">
             <Box>
-                <img width={240} src="src/assets/SecureHealthTransparente.png" alt="Imagem Centralizada" />
+                <img width={240} src="src/assets/SecureHealthTransparente.png" alt="SecureHealth Connect" />
             </Box>
             <TextField 
                 label="Digite o CRM" 
