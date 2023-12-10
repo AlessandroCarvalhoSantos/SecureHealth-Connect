@@ -12,6 +12,13 @@ const PacienteCadastro = () => {
   const navigate = useNavigate();
 
   const [cpf, setCpf] = useState(locationUrl.state.cpf);
+  const [descricao, setDescricao] = useState("");
+  const [medico, setMedico] = useState("");
+  const [crm, setCrm] = useState("");
+  const [sigiloso, setSigiloso] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [data, setData] = useState("");
+  const [url, setUrl] = useState("");
 
   const dados = locationUrl.state.dados; 
   const token = locationUrl.state.token; 
@@ -50,6 +57,70 @@ const PacienteCadastro = () => {
                 InputProps={{ readOnly: true }}
                 className={"input-cpf-cadastro"}
             />
+
+            <TextField 
+                label="Descrição" 
+                variant="filled" 
+                value={descricao} 
+                fullWidth 
+                onChange={(e) => setDescricao(e.target.value)}
+                className={"input-descricao-cadastro"}
+              />
+
+              <TextField 
+                  label="Médico" 
+                  variant="filled" 
+                  value={medico} 
+                  fullWidth 
+                  onChange={(e) => setMedico(e.target.value)}
+                  className={"input-medico-cadastro"}
+                />
+
+              <TextField 
+                label="CRM" 
+                variant="filled" 
+                value={crm} 
+                fullWidth 
+                onChange={(e) => setCrm(e.target.value)}
+                className={"input-crm-cadastro"}
+              />
+
+            <TextField 
+                label="Sigiloso" 
+                variant="filled" 
+                value={sigiloso} 
+                fullWidth 
+                onChange={(e) => setSigiloso(e.target.value)}
+                className={"input-sigiloso-cadastro"}
+              />
+
+            <TextField 
+                label="Tipo" 
+                variant="filled" 
+                value={tipo} 
+                fullWidth 
+                onChange={(e) => setTipo(e.target.value)}
+                className={"input-tipo-cadastro"}
+              />
+
+            <TextField 
+                label="Data" 
+                variant="filled" 
+                value={data} 
+                fullWidth 
+                onChange={(e) => setData(e.target.value)}
+                className={"input-data-cadastro"}
+              />
+
+            <TextField 
+                label="URL" 
+                variant="filled" 
+                value={url} 
+                fullWidth 
+                onChange={(e) => setUrl(e.target.value)}
+                className={"input-url-cadastro"}
+              />
+
             <Box className='group-button-paciente-home'>
                 <Button variant="contained" color="success" onClick={adicionarDadosPessoa} className='button-paciente-cadastro'>
                     Adicionar
