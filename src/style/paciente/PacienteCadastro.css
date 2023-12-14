@@ -27,11 +27,20 @@
     justify-content:space-around;
 }
 
-.input-cpf-cadastro{
+.input-readonly-cadastro{
     background-color: bisque;
 }
 
+.switch-sigiloso-cadastro{
 
+  width: 100%; 
+  display: flex; 
+  padding: 10px 0px;
+  border-bottom: 2px solid rgba(7, 0, 0, 0.199);
+  background-color: rgba(0, 0, 0, 0.055);
+  box-sizing: border-box;
+  margin: 0px !important;
+}
 
 .crm-data{
     width: 100%;
