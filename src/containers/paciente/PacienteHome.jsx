@@ -2,17 +2,133 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+
 import CenteredContainer from "../../components/CenteredContainer.jsx"
 import ValidationCpf from "../../utils/ValidationCpf.jsx"
 import MaskCpf from "../../utils/MaskCpf.jsx"
 import PDFViewer from '../../components/PDFViewer.jsx'; 
 
+import { ethers } from 'ethers';
 
 
 
 import "../../style/paciente/PacienteHome.css"
 
 const PacienteHome = () => {
+
+   //Conexão com contrato
+   const contractAddress = '0x7aFA950Eb3A40173703c4732834F5ac15108DcA9';
+
+   const [contract, setContract] = useState(null);
+   const [userAddress, setUserAddress] = useState('');
+ 
+   const abi = [
+     {
+       "inputs": [
+         {
+           "internalType": "string",
+           "name": "_cpf",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_descricao",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_medico",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_crm",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_sigiloso",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_tipo",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_data",
+           "type": "string"
+         },
+         {
+           "internalType": "string",
+           "name": "_url",
+           "type": "string"
+         }
+       ],
+       "name": "storeRecord",
+       "outputs": [],
+       "stateMutability": "nonpayable",
+       "type": "function"
+     },
+     {
+       "inputs": [
+         {
+           "internalType": "string",
+           "name": "_cpf",
+           "type": "string"
+         }
+       ],
+       "name": "retrieveRecords",
+       "outputs": [
+         {
+           "components": [
+             {
+               "internalType": "string",
+               "name": "descricao",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "medico",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "crm",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "sigiloso",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "tipo",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "data",
+               "type": "string"
+             },
+             {
+               "internalType": "string",
+               "name": "url",
+               "type": "string"
+             }
+           ],
+           "internalType": "struct SecureHealth.MedicalRecord[]",
+           "name": "",
+           "type": "tuple[]"
+         }
+       ],
+       "stateMutability": "view",
+       "type": "function"
+     }
+   ];
+ 
   const locationUrl = useLocation();
   const navigate = useNavigate();
 
@@ -29,41 +145,59 @@ const PacienteHome = () => {
     if (locationUrl.state.token != "761f7a100635a5fc03e5063aee1eef91") {
       navigate('/'); 
     }
-  }, [navigate]);
 
-  //Pegar dados aqui, trocar depois
-  const getDadosEstaticos = (cpf) => {
-    const dados = [
-      {
-        cpf: "131.429.857-78", 
-        descricao: "Atendimento de médico",
-        medico: "Josué Jota Jota",
-        crm: "11111/UF",
-        sigiloso: "Não",
-        tipo: "Ficha médica",
-        data: "06/08/2023",
-        url: "https://www.caceres.mt.gov.br/fotos_institucional_downloads/2.pdf"
-      },
-      {
-        cpf: "131.429.857-78", 
-        descricao: "Atendimento de médico",
-        medico: "Josué Jota Jota",
-        crm: "11111/UF",
-        sigiloso: "Não",
-        tipo: "Ficha médica",
-        data: "06/08/2023",
-        url: "https://www.caceres.mt.gov.br/fotos_institucional_downloads/2.pdf"
-      },
-    ];
-  
-    return dados.filter(item => item.cpf === cpf);
+    async function init() {
+      // Conectar ao provedor Web3
+       
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        //console.log("Account:", await signer.getAddress());
+
+      // Criar uma instÃ¢ncia do contrato
+   
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      setContract(contract);
+      const address = await signer.getAddress();
+      setUserAddress(address);
+      //console.log('Connected to MetaMask');
+    }
+    init();
+
+  }, [navigate,contractAddress, abi]);
+
+  const retrieveValue = async (cpfRecovery) => {
+    if (contract && cpfRecovery) {
+        try {
+            const records = await contract.retrieveRecords(cpfRecovery);
+            // Transforma os registros em um formato mais amigável para o JavaScript
+            const formattedRecords = records.map(record => ({
+                cpf: cpfRecovery,
+                descricao: record.descricao,
+                medico: record.medico,
+                crm: record.crm,
+                sigiloso: record.sigiloso? "Sim":"Não",
+                tipo: record.tipo,
+                data: record.data,
+                url: record.url
+            }));
+
+            return formattedRecords;
+        } catch (error) {
+            console.error("Erro ao recuperar registros:", error);
+            alert('Falha ao recuperar registros.');
+        }
+    } else {
+        alert('Por favor, insira um CPF válido.');
+    }
   };
   
-  
 
 
-  const buscarDados = () => {
-    let dados = getDadosEstaticos(cpf);
+  const buscarDados = async () => {
+    let dados = await retrieveValue(cpf);
+    console.log(dados)
 
     if(ValidationCpf(cpf)){
       if (dados.length === 0) {

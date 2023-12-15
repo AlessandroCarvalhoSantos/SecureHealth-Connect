@@ -16,6 +16,7 @@
     "@mui/material": "^5.14.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "@react-pdf/renderer": "^3.1.14",
+    "ethers": "^6.9.0",
     "helia": "^2.1.0",
     "pdfjs-dist": "^4.0.189",
     "react": "^18.2.0",
